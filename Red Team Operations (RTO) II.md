@@ -15,6 +15,7 @@ on redirector,
 `sudo apt install apache2`
 `sudo a2enmod ssl rewrite proxy proxy_http`
 
+A partir de aqui
 `cd /etc/apache2/sites-enabled`
 `sudo rm 000-default.conf`
 `sudo ln -s ../sites-available/default-ssl.conf .`

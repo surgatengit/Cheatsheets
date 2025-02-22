@@ -1,30 +1,42 @@
 # Zero-Point Security Red Team Operations (RTO) II
-All the concepts from the course as well as my own research, with commands provided
 
-***DO NOT USE THIS DOCUMENT AS IS***
-1. download this markdown file, and open it in [Obisidan](https://obsidian.md)
-2. in Settings → Core Plugins, enable Outline, then run "Outline: Show Outline" in the command palette
-     - Now you can quickly jump to a particular section by clicking its heading in the outline.
-3. in Settings → Community plugins → Browse, find and install "Copy Inline Code"
-     - Now you can copy any command by clicking on the end of it.
-4. enter "reading" view by clicking the book in the top-right (by default)
-     - Now you can see commands for linked sections by hovering over them.
 ## C2 Infrastructure
 #### Apache Installation
 on redirector,
-`sudo apt install apache2`
-`sudo a2enmod ssl rewrite proxy proxy_http`
-
+```
+sudo apt install apache2
+sudo a2enmod ssl rewrite proxy proxy_http
+```
 A partir de aqui
-`cd /etc/apache2/sites-enabled`
-`sudo rm 000-default.conf`
-`sudo ln -s ../sites-available/default-ssl.conf .`
-`sudo systemctl restart apache2`
+```
+cd /etc/apache2/sites-enabled
+sudo rm 000-default.conf
+sudo ln -s ../sites-available/default-ssl.conf .
+sudo systemctl restart apache2
+```
+
 #### TLS Certificates
 ##### Redirector (Public)
-on attacker (client),
-`openssl genrsa -out private.key 2048`
-`openssl req -new -key private.key -out request.csr`
+on attacker (client), ubuntu (WSL)
+```
+cd /home/attacker
+openssl genrsa -out infinity-bank.key 2048
+openssl req -new -key infinity-bank.key -out infinity-bank.csr
+
+Country Name (2 letter code) [AU]:UK
+State or Province Name (full name) [Some-State]:London
+Locality Name (eg, city) []:.
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Infinity Bank
+Organizational Unit Name (eg, section) []:.
+Common Name (e.g. server FQDN or YOUR name) []:Infinity Bank
+Email Address []:.
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:Infinity Bank
+```
+
 
 submit csr to ca =
 `nano /home/attacker/ca/ca.ext`
